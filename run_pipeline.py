@@ -67,7 +67,7 @@ def main(argv=None) -> int:
 
     # ------------------------------------------------------------ 2. parse
     balances = parser.delinquent_balances(files["TaxDetail.txt"], config.MIN_DELINQUENT)
-    log.info("TaxDetail: %d parcels with >= $%.0f unpaid prior-year tax", len(balances), config.MIN_DELINQUENT)
+    log.info("TaxDetail: %d parcels with >= $%.0f past-due tax", len(balances), config.MIN_DELINQUENT)
     wanted = set(balances)
     info = parser.parcel_info(files["Parcel.txt"], wanted)
     values = parser.market_values(files["Value.txt"], wanted) if "Value.txt" in files else {}

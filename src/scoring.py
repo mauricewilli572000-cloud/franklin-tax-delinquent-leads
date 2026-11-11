@@ -14,7 +14,8 @@ BUSINESS_RE = re.compile(r"\b(LLC|L L C|INC|CORP|CORPORATION|COMPANY|CO|LTD|LP|L
 
 
 def _norm_street(s: str) -> str:
-    s = re.sub(r"[^A-Z0-9 ]", "", (s or "").upper())
+    s = re.sub(r"^\s*(\d+)\s*-\s*\d+\b", r"\1", (s or "").upper())   # '803 - 805 SUMMIT' -> '803 SUMMIT'
+    s = re.sub(r"[^A-Z0-9 ]", "", s)
     s = re.sub(r"\b(STREET|ST|AVENUE|AVE|AV|ROAD|RD|DRIVE|DR|LANE|LN|COURT|CT|PLACE|PL|BOULEVARD|BLVD)\b", "", s)
     return re.sub(r"\s+", " ", s).strip()
 

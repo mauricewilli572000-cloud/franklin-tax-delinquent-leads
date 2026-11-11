@@ -44,3 +44,10 @@ def test_scoring():
     score(lead, dt.date(2026, 11, 10))
     assert lead.absentee_owner and lead.tier == "Hot"
     assert "Estate / heirs" in lead.flags
+
+
+def test_house_number_range_is_not_absentee():
+    lead = LeadRecord(doc_num="x", owner_name="SECREST MICHAEL", delinquent_amount=900,
+                      property_address="803 - 805 SUMMIT ST", mailing_address="803 SUMMIT ST")
+    score(lead, dt.date(2026, 11, 10))
+    assert not lead.absentee_owner
