@@ -64,18 +64,31 @@ def hyphen_parcel(p: str) -> str:
 
 
 def delinquent_balances(path: Path, min_amount: float) -> dict[str, dict]:
-    """TaxDetail.txt -> {parcel: {...}} for parcels with an unpaid prior-year balance."""
+    """TaxDetail.txt -> {parcel: {...}} for parcels that are past due.
+
+    Past due = an unpaid balance carried from a prior tax year (TotPrior), or an
+    unpaid current-year balance that has already been charged a late penalty
+    (TotPenalty > 0). Checked against the Auditor's 2026 advertised delinquent
+    list: its "TOTAL DELINQUENT" equals TotTotal for those parcels.
+    """
     out = {}
     for r in rows(path):
         prior = num(r.get("TotPrior"))
-        if prior < min_amount:
+        penalty = num(r.get("TotPenalty"))
+        interest = max(0.0, num(r.get("TotInterest")))
+        total = max(0.0, num(r.get("TotTotal")))
+        if penalty > 0 and total > 0:
+            delinquent = total
+        else:
+            delinquent = prior + interest if prior > 0 else 0.0
+        if delinquent < min_amount:
             continue
         pid = hyphen_parcel(r.get("Parcel Id", ""))
         out[pid] = {
             "prior": round(prior, 2),
-            "delinquent": round(prior + max(0.0, num(r.get("TotInterest"))), 2),
-            "total": round(max(0.0, num(r.get("TotTotal"))), 2),
-            "penalty": round(num(r.get("TotPenalty")), 2),
+            "delinquent": round(delinquent, 2),
+            "total": round(max(total, delinquent), 2),
+            "penalty": round(penalty, 2),
         }
     return out
 

@@ -11,7 +11,7 @@ Motivated-seller leads from parcels with **unpaid prior-year property tax**, bui
 **Outputs:** `docs/index.html` dashboard · `docs/franklin_tax_delinquent.json` (also read by
 ohio-lead-stacker) · `data/ghl_franklin_tax_delinquent.csv` for GoHighLevel.
 
-A parcel is a lead when its unpaid prior-year balance is $250+ and it isn't government,
+A parcel is a lead when it owes $250+ that is past due (a prior-year balance, or a balance already charged a late penalty) and it isn't government,
 exempt or utility property. Parcels that pay off are kept but marked `removed`.
 
 Runs daily (~6:23 AM ET) and only rebuilds when the Auditor posts a new drop.

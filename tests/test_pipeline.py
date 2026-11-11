@@ -21,8 +21,9 @@ def test_address_splitting():
 
 def test_delinquent_filter_and_enrichment():
     bal = parser.delinquent_balances(FX / "TaxDetail.txt", 250)
-    assert set(bal) == {"010-000034-00", "600-000001-00"}       # paid and tiny balances dropped
-    assert bal["010-000034-00"]["delinquent"] == 6463.84
+    assert set(bal) == {"010-000034-00", "600-000001-00"}   # paid, not-yet-late and tiny balances dropped
+    assert bal["010-000034-00"]["delinquent"] == 3382.07   # late current-year balance
+    assert bal["600-000001-00"]["delinquent"] == 5000.00   # prior-year balance
     info = parser.parcel_info(FX / "Parcel.txt", set(bal))
     p = info["010-000034-00"]
     assert p["property_address"] == "1645 E GREENWAY AV" and p["property_zip"] == "43203"
