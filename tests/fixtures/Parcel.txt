@@ -1,0 +1,3 @@
+PARCEL ID	SiteAddress	OwnerName1	OwnerName2	OwnerAddress1	OwnerAddress2	TaxpayerAddress1	TaxpayerAddress2	CDQ	IsHomestead	LUC	LUCDesc	ZipCode	City	LastSaleDate	LastSaleAmount	BankCode	ExemptStatus
+"010-000034-00"	"1645 E GREENWAY AV, COLUMBUS, OH 43203"	"BURDETTE REBECCA"	""	"9 ELM ST"	"DAYTON OH 45402-1234"	""	""	"2021"	"False"	"510"	"510 - ONE-FAMILY DWLG"	"43203"	"COLUMBUS"	"05/01/2001"	"52000.00"	""	""
+"600-000001-00"	"1 CITY HALL, COLUMBUS, OH 43215"	"CITY OF COLUMBUS"	""	"90 W BROAD ST"	"COLUMBUS OH 43215"	""	""	""	"False"	"640"	"EXEMPT"	"43215"	"COLUMBUS"	""	""	""	""
